@@ -62,7 +62,7 @@
     margin-bottom: 8px;
 }
 
-.menu-main-menu li img
+.menu-main-menu li img, .menu-site-user-menu li img
 {
     float: left;
     margin-right: 10px !important;
