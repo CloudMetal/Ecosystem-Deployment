@@ -67,3 +67,10 @@
     float: left;
     margin-right: 10px !important;
 }
+
+.navbar-form input
+{
+  height: 10px;
+  width: 100px !important;
+  margin-right: 5px !important;
+}
