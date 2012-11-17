@@ -1,0 +1,26 @@
+﻿@{
+    Script.Require("jQuery").AtHead();
+    Script.Require("jquery-ui-widget").AtHead();
+    Script.Require("jquery-file-upload").AtHead();
+    Script.Require("jquery-iframe-transport").AtHead();
+}
+
+@using (Html.BeginFormAntiForgeryPost("Upload", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <input id="fileupload" type="file" name="files[]" data-url="@Url.Action("Upload")" multiple />
+}
+
+
+
+<script>
+$(function () {
+    $('#fileupload').fileupload({
+        dataType: 'json',
+        done: function (e, data) {
+            $.each(data.result, function (index, file) {
+                $('<p/>').text(file.name).appendTo(document.body);
+            });
+        }
+    });
+});
+</script>

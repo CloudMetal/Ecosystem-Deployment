@@ -1,0 +1,35 @@
+﻿@using MedVault.Framework.Model;
+@{
+    Supplement supplement = Model.Supplement;
+}
+
+<div class="popup-large">
+	<div class="action-wrap-header">
+	<h3 class="left">Supplement Information</h3>
+	</div>
+	<hr>
+	
+	<div class="display-wrap">	
+		<div class="popup-large-column">
+            <div id="popup-row"><label>Status:</label>
+            @if (supplement.IsActive) {
+                <p>Active</p>
+            } else {
+                <p>Inactive</p>
+            }
+            </div>
+		<div id="popup-row"><label>Description:</label><p>@supplement.Description</p></div>
+		
+		</div>
+		<div class="popup-large-column">
+		<div id="popup-row"><label>Create Date:</label><p>@supplement.CreateDate.ToLongDateString()</p></div>
+            <div id="popup-row"><label>Photos:</label>
+                <p>photo1.jpg</p><br>
+                                 <p>photo2.jpg</p></div>
+		</div>	
+		<div class="clear"></div>
+	</div>
+		<div id="popup-action">
+
+		</div>
+	</div>

@@ -1,0 +1,16 @@
+﻿@model Pharmalto.Ecosystem.Models.StorageSettingsPart
+
+<fieldset>
+    <legend>@T("Storage")</legend>
+    <div>
+        <label for="@Html.FieldIdFor(m => m.AccountName)">@T("Azure Account Name")</label>
+        @Html.EditorFor(m => m.AccountName)
+        @Html.ValidationMessage("Account Name", "*")
+    </div>
+    <div>
+        <label for="@Html.FieldIdFor(m => m.AccountKey)">@T("Azure Account Key")</label>
+        @Html.EditorFor(m => m.AccountKey)
+        @Html.ValidationMessage("Account Key", "*") 
+    </div>
+    
+</fieldset>

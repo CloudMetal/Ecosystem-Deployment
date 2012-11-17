@@ -1,0 +1,9 @@
+﻿<Placement>
+  <Place Parts_EcoUser_Edit="Content:0" />
+  <Place Parts_HealthViewWidget_Edit="Content:1" />
+  <Place Parts_HealthViewWidget="Content:1" />
+  <Place Parts_ProfilePlate="Content:0" />
+  <Place Parts_EcoProfile_Edit="Content:1" />
+  <Place Parts_EcoProfile="Content:1" />
+  <Place Parts_StorageSettings_Edit="Content:1" />
+</Placement>

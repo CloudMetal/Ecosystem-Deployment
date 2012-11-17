@@ -1,0 +1,223 @@
+﻿@using Orchard.ContentManagement;
+@using Orchard;
+
+@functions {
+    // To support the layout classifaction below. Implementing as a razor function because we can, could otherwise be a Func<string[], string, string> in the code block following.
+    string CalcuClassify(string[] zoneNames, string classNamePrefix)
+    {
+        var zoneCounter = 0;
+        var zoneNumsFilled = string.Join("", zoneNames.Select(zoneName => { ++zoneCounter; return Model[zoneName] != null ? zoneCounter.ToString() : ""; }).ToArray());
+        return HasText(zoneNumsFilled) ? classNamePrefix + zoneNumsFilled : "";
+    }
+
+    HtmlString BeginBlock(string caption)
+    {
+        return new HtmlString(String.Format(
+@"<div class=""box block"">
+    <div class=""box-body block-body"">
+<div class=""bar blockheader"">
+    <h3 class=""t"">{0}</h3>
+</div>
+<div class=""box blockcontent"">
+    <div class=""box-body blockcontent-body"">", caption));
+    }
+
+    HtmlString EndBlock()
+    {
+        return new HtmlString(
+@"<div class=""cleared""></div>
+    </div>
+</div>
+		<div class=""cleared""></div>
+    </div>
+</div>");
+    }
+
+    HtmlString BeginArticle(string caption)
+    {
+        return new HtmlString(String.Format(
+@"<div class=""box post"">
+    <div class=""box-body post-body"">
+<div class=""post-inner article"">
+" + (!String.IsNullOrEmpty(caption) ? @"<h2 class=""postheader"">{0}</h2>" : "") + @"
+<div class=""postcontent"">", caption));
+    }
+
+    HtmlString EndArticle()
+    {
+        return new HtmlString(
+@"</div>
+<div class=""cleared""></div>
+</div>
+		<div class=""cleared""></div>
+    </div>
+</div>");
+    }
+}
+
+
+@{
+    /* Global includes for the theme
+    ***************************************************************/
+
+    SetMeta("X-UA-Compatible", "IE=edge,chrome=1");
+    Style.Include("http://fonts.googleapis.com/css?family=Lobster&subset=latin");
+
+    SetMeta("X-UA-Compatible", "IE=edge,chrome=1");
+    SetMeta("viewport", "width=device-width, initial-scale=1, maximum-scale=1");
+    //Style.Include("bootstrap.css"); // standard style sheet
+    Style.Include("bootstrap.min.css"); // minified style sheet
+    //Style.Include("bootstrap-responsive.css"); // standard responsive style sheet
+    Style.Include("bootstrap-responsive.min.css"); // minified responsive style sheet
+    //Style.Include("less/bootstrapless.less"); // LESS implementation *Requires DOTLESS module
+    Style.Include("site.css"); // theme specific standard style sheet
+    Script.Require("jQuery").AtHead();
+    //Script.Include("bootstrap.js"); // standard javascript file
+    Script.Include("bootstrap.min.js"); // minified javascript file
+
+    /* Store each page in a variable for conditionals
+    ***************************************************************/
+
+    var isProfilePage = HttpContext.Current.Request.Url.AbsolutePath.StartsWith("/");
+    var currentUrl = Request.Url.AbsoluteUri;
+    var isOrigin = HttpContext.Current.Request.Url.AbsolutePath.EndsWith("/");
+
+    /* Some useful shortcuts or settings
+    ***************************************************************/
+
+    Func<dynamic, dynamic> Zone = x => Display(x); // Zone as an alias for Display to help make it obvious when we're displaying zones
+
+
+    /* Get image path for images
+    ***************************************************************/
+    var ImgPath = Url.Content("~/Themes/PharmaltoInternal/Content/Images/");
+
+    /* Inserting some ad hoc shapes
+    ***************************************************************/
+    //WorkContext.Layout.Header.Add(New.LogOn(), "5"); // Site name and link to the home page
+    WorkContext.Layout.User.Add(New.User(), "5"); // Login and dashboard links
+
+    /* Last bit of code to prep the layout wrapper
+    ***************************************************************/
+
+    Model.Id = "layout-wrapper";
+    var tag = Tag(Model, "div"); // using Tag so the layout div gets the classes, id and other attributes added to the Model
+}
+
+@{ 
+    Script.Require("ShapesBase");
+
+    Orchard.Security.IUser user;
+
+    user = @WorkContext.CurrentUser;
+
+    String userName;
+
+    userName = (user != null) ? user.UserName : "";
+}
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head runat="server">
+    <!-- Created by Artisteer v4.0.0.58475 -->
+    <meta charset="utf-8">
+    <title>@ViewBag.Title</title>
+    <meta name="viewport" content="initial-scale = 1.0, maximum-scale = 1.0, user-scalable = no, width = device-width">
+    <!--[if lt IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+    @{Style.Include("home.style.css");}
+    @{Style.Include("style.css");}
+    <!--[if lte IE 7]><![endif]-->
+    @{Script.Include("jquery-1.5.1.min.js");}
+    @{Script.Include("script.js");}
+</head>
+<body>
+    <div id="main">
+        <header class="header clearfix">
+            <div class="shapes">
+                <div class="userNav">
+                    @Zone(Model.Featured)
+                    @Zone(Model.User)
+                </div>
+            </div>
+        </header>
+        <div class="sheet clearfix">
+            <div class="layout-wrapper clearfix">
+                <div class="content-layout">
+                    <div class="content-layout-row">
+                        <div class="layout-cell sidebar1 clearfix">
+                            @BeginBlock(userName)
+
+                            @Zone(Model.AsideFirst)
+
+                            @EndBlock()
+
+                            @BeginBlock("Health Information")
+
+                            @Zone(Model.AsideSecond)
+
+                            @EndBlock()
+
+                            @BeginBlock("")
+
+                            @Zone(Model.Navigation)
+
+                            @EndBlock()
+
+                        </div>
+                        <div id="client-main" class="layout-cell content clearfix">
+                            <!-- begin content -->
+                            @if (!String.IsNullOrEmpty(Model.Metadata.ChildContent.ToString().Trim()))
+                            {
+                                @BeginBlock(Model.Content.Title.ToString())
+                                @Zone(Model.Content)
+                                @EndBlock()
+                            }
+
+                            @BeginArticle(Model.ContentItem.WidgetPart.Title.ToString())
+                            <div class="postcontent-0">
+                                <div class="content-layout">
+                                    <div class="content-layout-row">
+                                        <div class="layout-cell layout-item-0" style="width: 60%">
+                                            <p>@Zone(Model.FooterQuadFirst)<br>
+                                            </p>
+                                        </div>
+                                        <div class="layout-cell layout-item-0" style="width: 39%">
+                                            <p>@Zone(Model.FooterQuadSecond)<br>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="content-layout">
+                                    <div class="content-layout-row">
+                                        <div class="layout-cell layout-item-0" style="width: 60%">
+                                            <p>@Zone(Model.FooterQuadThird)</p>
+                                        </div>
+                                        <div class="layout-cell layout-item-0" style="width: 39%">
+                                            <p>@Zone(Model.FooterQuadFourth)<br>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @EndArticle()
+                            <!-- end content -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- -->
+
+        <footer class="footer clearfix">
+            <div class="footer-inner">
+                <div class="content-layout">
+                    <div class="content-layout-row">
+                        <div class="layout-cell layout-item-0" style="width: 100%">
+                            <div style="background-color: #13212e; width: 100%; height: 90px">© 2011-2012, Powered by CloudMetal.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+</body>

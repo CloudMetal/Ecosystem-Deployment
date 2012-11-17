@@ -1,0 +1,40 @@
+﻿@using Pharmalto.Ecosystem.ViewModels
+@{
+    var login = (LoginViewModel)Model.Login;
+
+    Style.Require("Pharmalto.Common");
+}
+
+<h2>@T("Ecosystem Login")</h2>
+<p>@T("Please login using the form below")</p>
+
+@Html.ValidationSummary()
+
+@using (Html.BeginFormAntiForgeryPost(Url.Action("Login", "Home", new { area = "Pharmalto.Ecosystem" }))) {
+    
+    <article class="form">
+            
+        <fieldset>
+            <ul>
+                <li><div class="field-label">@Html.LabelFor(m => login.Email, T("Email"))</div>
+                    <div class="field-editor">@Html.EditorFor(m => login.Email)</div></li>
+                <li><div class="field-label">@Html.LabelFor(m => login.Password, T("Password"))</div>
+                    <div class="field-editor">@Html.EditorFor(m => login.Password)</div></li>
+            </ul>
+        </fieldset>
+    
+        <fieldset>
+            <ul>
+                <li><div class="field-label">@Html.LabelFor(m => login.CreatePersistentCookie, T("Remember me"))</div>
+                    <div class="field-editor">@Html.EditorFor(m => login.CreatePersistentCookie)</div></li>
+            </ul>
+        </fieldset>
+    
+        <footer class="commands">
+            <ul>
+                <li class="align right"><button type="submit">@T("Login")</button></li>
+            </ul>
+        </footer>
+    
+    </article>
+}

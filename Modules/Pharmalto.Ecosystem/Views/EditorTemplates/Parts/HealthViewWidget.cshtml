@@ -1,0 +1,14 @@
+﻿@model Pharmalto.Ecosystem.Models.HealthViewWidgetPart
+
+<fieldset>
+  <legend>Health View Fields</legend>
+
+  <div class="editor-label">
+    @Html.LabelFor(model => model.Mode)
+  </div>
+  <div class="editor-field">
+    @Html.TextBoxFor(model => model.Mode)
+    @Html.ValidationMessageFor(model => model.Mode)
+  </div>
+
+</fieldset>

@@ -1,0 +1,39 @@
+﻿@using Pharmalto.Ecosystem.ViewModels
+@{
+    var register = (RegisterViewModel)Model.Register;
+    
+    Style.Require("Pharmalto.Common");
+}
+<h2>@T("Register")</h2>
+<p>@T("Please fill out the form below")</p>
+ 
+@Html.ValidationSummary()
+ 
+@using (Html.BeginFormAntiForgeryPost(Url.Action("Register", "Home", new { area = "Pharmalto.Ecosystem" }))) {    
+    <article class="form">
+    
+        <fieldset>
+            <ul>
+                <li>
+                    <div class="field-label">@Html.LabelFor(m => register.Email, T("Email"))</div>
+                    <div class="field-editor">@Html.EditorFor(m => register.Email)</div>
+                </li>
+                <li>
+                    <div class="field-label">@Html.LabelFor(m => register.Password, T("Password"))</div>
+                    <div class="field-editor">@Html.EditorFor(m => register.Password)</div>
+                </li>
+                <li>
+                    <div class="field-label">@Html.LabelFor(m => register.RepeatPassword, T("Repeat password"))</div>
+                    <div class="field-editor">@Html.EditorFor(m => register.RepeatPassword)</div>
+                </li>
+            </ul>
+        </fieldset>
+    
+        <footer class="commands">
+            <ul>
+                <li class="align left"><a href="#">@T("Cancel")</a></li>
+                <li class="align right"><button type="submit">@T("Register")</button></li>
+            </ul>
+        </footer>
+    </article>
+}

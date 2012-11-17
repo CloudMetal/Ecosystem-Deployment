@@ -1,0 +1,67 @@
+﻿@model Pharmalto.Ecosystem.ViewModels.SupplementsViewModel
+           
+<div class="module-wrap">
+    <div class="action-wrap-header">
+        @if (Model.User != null) {
+            <h3 class="fw left">@Model.User.User.Email</h3>
+            <span class="fw left">@Model.Medicines.Count() Medications</span>
+        } else {
+            <h3 class="fw left">Unknown EcoSystem User</h3>
+            <span class="fw left">0 Medications</span>
+        }
+    </div>
+    <hr>
+	
+    <div class="display-wrap-b">	
+        <div class="action-wrap-nav">
+            <div class="table-actions">
+                <label for="create-actions">Actions:</label>
+                <select id="create-actions" name="">
+                    <option selected="selected" value="None">Choose action...</option>
+                    <option value="Edit">Edit Selected</option>
+                    <option value="Delete">Delete Selected</option>
+                </select>
+                <button type="submit" name="" value="Apply">Apply</button>
+            </div>
+   
+            <div id="add-btn-rt">
+                <button type="submit" name="" value="Filter">Add Medication</button>
+            </div>
+        </div>	
+
+    </div>
+    
+    @if (Model.Medicines.Any()) {
+@: <div id="table-records">
+    @: <table class="table-items">
+    @: <tr>
+    @: <th scope="col">
+    @: <th scope="col">Name&nbsp;&darr;</th>
+    @: <th scope="col">Date Added&nbsp;&darr;</th>
+    @: <th scope="col">Ineffective&nbsp;&darr;</th>
+    @: <th scope="col">Side Effects&nbsp;&darr;</th>
+    @: <th scope="col">Allergies&nbsp;&darr;</th>
+    @: <th scope="col">Details&nbsp;&darr;</th>					
+    @: </tr>
+
+}
+@foreach (var supplement in Model.Supplements) {
+    <tr class="table-row">
+        <td><input type="checkbox"></td>
+        <td>@supplement.Name</td>
+        <td>@supplement.CreateDate.ToLongDateString()</td>
+        <td>No</td>
+        <td>No</td>
+        <td>No</td>
+        <td>@Html.Link(T("View Details").Text, Url.Action("Detail", "Home", new { area = "Pharmalto.Ecosystem", id = supplement.Id }))</td>
+    </tr>
+}
+@if (Model.Medicines.Any()) {
+    @: </table>
+    @: </div>
+}
+    
+</div>
+
+
+

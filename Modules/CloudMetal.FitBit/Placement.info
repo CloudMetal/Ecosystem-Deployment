@@ -1,0 +1,5 @@
+﻿<Placement>
+	<Place Parts_OAuthSettings_Edit="Content:0" />
+	<Place Parts_FitBitWidget="Content:1" />
+  <Place Parts_FitBitWidget_Edit="Content:1" />
+</Placement>

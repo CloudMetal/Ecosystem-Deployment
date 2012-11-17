@@ -1,0 +1,11 @@
+﻿Name: Pharmalto.Ecosystem
+AntiForgery: enabled
+Author: CloudMetal, LLC
+Website: http://www.pharmalto.com
+Version: 0.3
+OrchardVersion: 1.5
+Category: Pharmalto
+Description: Pharmalto Ecosystem Module
+Features:
+    Pharmalto.Ecosystem:
+        Description: Pharmalto ecosystem functionality.

@@ -1,0 +1,11 @@
+﻿@model CloudMetal.FitBit.Models.FitBitWidgetPart 
+
+<fieldset>
+    <legend>@T("FitBit Widget Settings")</legend>
+    <div>
+        <label for="@Html.FieldIdFor(m => m.ActivitiesDate)">@T("Activities Date")</label>
+        @Html.EditorFor(m => m.ActivitiesDate)
+        @Html.ValidationMessage("ActivitiesDate", "*")
+    </div>
+    
+</fieldset>

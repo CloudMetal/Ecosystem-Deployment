@@ -1,0 +1,136 @@
+﻿@functions {
+    // To support the layout classifaction below. Implementing as a razor function because we can, could otherwise be a Func<string[], string, string> in the code block following.
+    string CalcuClassify(string[] zoneNames, string classNamePrefix)
+    {
+        var zoneCounter = 0;
+        var zoneNumsFilled = string.Join("", zoneNames.Select(zoneName => { ++zoneCounter; return Model[zoneName] != null ? zoneCounter.ToString() : ""; }).ToArray());
+        return HasText(zoneNumsFilled) ? classNamePrefix + zoneNumsFilled : "";
+    }
+}
+
+   
+
+@{
+    /* Global includes for the theme
+    ***************************************************************/
+
+    SetMeta("X-UA-Compatible", "IE=edge,chrome=1");
+    Style.Include("http://fonts.googleapis.com/css?family=Lobster&subset=latin");
+    Style.Include("site.css");
+
+
+    /* Store each page in a variable for conditionals
+    ***************************************************************/
+
+    var isProfilePage = HttpContext.Current.Request.Url.AbsolutePath.StartsWith("/");
+    var currentUrl = Request.Url.AbsoluteUri;
+    var isOrigin = HttpContext.Current.Request.Url.AbsolutePath.EndsWith("/");
+
+    /* Some useful shortcuts or settings
+    ***************************************************************/
+
+    Func<dynamic, dynamic> Zone = x => Display(x); // Zone as an alias for Display to help make it obvious when we're displaying zones
+
+
+    /* Get image path for images
+    ***************************************************************/
+    var ImgPath = Url.Content("~/Themes/PharmaltoEco/Content/Images/");
+
+    /* Inserting some ad hoc shapes
+    ***************************************************************/
+    WorkContext.Layout.Header.Add(New.Branding(), "5"); // Site name and link to the home page
+    WorkContext.Layout.Footer.Add(New.BadgeOfHonor(), "5"); // Copyright
+
+    /* Last bit of code to prep the layout wrapper
+    ***************************************************************/
+
+    Model.Id = "layout-wrapper";
+    var tag = Tag(Model, "div"); // using Tag so the layout div gets the classes, id and other attributes added to the Model
+}
+@tag.StartElement
+
+
+@if (Model.Header != null) {
+<header id="layout-header">
+    <div id="header">
+        @Zone(Model.Header)
+    </div>
+</header>
+}
+
+<div class="layout-main">
+<div class="column-left">
+@if (Model.Featured != null) {
+<div id="layout-featured">
+    @Zone(Model.Featured)
+</div>
+}
+
+    @if (Model.AsideFirst != null) {
+    <aside id="aside-first">
+        @Zone(Model.AsideFirst)
+    </aside>
+    }
+    
+    @if (Model.Navigation != null) {
+<div id="layout-navigation">
+    @Zone(Model.Navigation)
+</div>
+}
+</div>
+
+
+<div id="col-main">
+    @if (Model.BeforeMain != null) {
+<div id="layout-before-main">
+    @Zone(Model.BeforeMain)
+</div>
+}
+
+        @if (Model.Content != null) {
+        <div id="content">
+            @Zone(Model.Content)
+        </div>
+        }
+        
+        @if (Model.AfterContent != null) {
+        <div id="after-content">
+            @Zone(Model.AfterContent)
+        </div>
+        }
+
+    @if (Model.TripelFirst != null) {
+    <div id="tripel-first">
+        @Zone(Model.TripelFirst)
+    </div>
+    }
+    @if (Model.TripelSecond != null) {
+    <div id="tripel-second">
+        @Zone(Model.TripelSecond)
+    </div>
+    }
+    @if (Model.TripelThird != null) {
+    <div id="tripel-third">
+        @Zone(Model.TripelThird)
+    </div>
+    }
+</div>
+</div>
+
+
+<div class="clear"></div>
+
+
+        
+        @if(Model.Footer != null) {
+    <footer id="footer">
+            @Zone(Model.Footer)
+    </footer>
+        }
+
+
+
+@tag.EndElement
+
+
+

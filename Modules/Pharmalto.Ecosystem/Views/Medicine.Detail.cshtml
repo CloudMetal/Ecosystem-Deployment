@@ -1,0 +1,46 @@
+﻿@using MedVault.Framework.Model;
+@{
+    Medicine medicine = Model.Medicine;
+}
+
+<div class="popup-large">
+	<div class="action-wrap-header">
+	<h3 class="left">Medication Information</h3>
+	</div>
+	<hr>
+	
+	<div class="display-wrap">	
+		<div class="popup-large-column">
+            <div id="popup-row"><label>Status:</label>
+            @if (medicine.IsActive) {
+                <p>Active</p>
+            } else {
+                <p>Inactive</p>
+            }
+            </div>
+		<div id="popup-row"><label>Barcode:</label><p>@medicine.ScanData</p></div>
+		<div id="popup-row"><label>*Medicine Type:</label><p>@medicine.MedicineTypeId</p></div>
+		<div id="popup-row"><label>*Medicine Name:</label><p>@medicine.Name</p></div>
+		<div id="popup-row"><label>Dose:</label><p>@medicine.Dose</p></div>
+		<div id="popup-row"><label>Dosage:</label><p>@medicine.Dosage</p></div>
+		<div id="popup-row"><label>Quantity:</label><p>@medicine.Quantity</p></div>
+		</div>
+		<div class="popup-large-column">
+		<div id="popup-row"><label>Filled On Date:</label><p>@medicine.CreateDate.ToLongDateString()</p></div>
+		<div id="popup-row"><label>Photos:</label>
+		<p>photo1.jpg</p><br>
+		<p>photo2.jpg</p></div>
+		<div id="popup-row"><label>Ineffective:</label><p>No</p></div>
+		<div id="popup-row"><label>Side Effects:</label>
+		<p>Dizziness</p><br>
+		<p>Sleepiness</p></div>
+		<div id="popup-row"><label>Allergies:</label>
+		<p>Shortness of Breath</p><br>
+		<p>Fever</p></div>
+		</div>	
+		<div class="clear"></div>
+	</div>
+		<div id="popup-action">
+
+		</div>
+	</div>

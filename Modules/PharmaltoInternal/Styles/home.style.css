@@ -1,0 +1,58 @@
+.content .postcontent-0 .layout-item-0
+{
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+.ie7 .post .layout-cell
+{
+    border: none !important;
+    padding: 0 !important;
+}
+
+.ie6 .post .layout-cell
+{
+    border: none !important;
+    padding: 0 !important;
+}
+
+.sidebar1
+{
+    background-image: url('../content/images/header.png') !important;
+    background-size: 500px !important;
+    background-position-x: -150px !important;
+    border-right: 1px solid #ffffff;
+}
+
+#client-main
+{
+    background-image: url('../content/images/header.png');
+    background-size: 1025px;
+    background-position: -140px;
+}
+
+.userNav a, user-display a:link
+{
+    color: white;
+}
+
+.userNav
+{
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    color: white;    
+    float: right;
+    display: inline;
+}
+
+.zone-featured, .zone-user
+{
+    float: right;
+    margin-right: 10px;
+}
+
+.menu-main-menu li a
+{
+    padding: 10px;
+}
