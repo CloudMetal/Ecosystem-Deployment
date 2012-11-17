@@ -1,8 +1,19 @@
-﻿@{
+﻿@using Orchard.ContentManagement;
+@using System.Linq;
+@using System.Collections;
+
+@{
     // odd formatting in this file is to cause more attractive results in the output.
     var items = Enumerable.Cast<dynamic>((System.Collections.IEnumerable)Model);
 }
+
 @{
+    String iconUrl;
+
+    iconUrl = null;
+   
+    iconUrl = Model.Content.ContentItem.ContentType == "ContentMenuItem" ? Model.Content.ContentItem.ContentMenuItem.Icon.Url : null;
+       
 if (!HasText(Model.Text)) {
     @DisplayChildren(Model)
 } else {
@@ -16,7 +27,12 @@ if (!HasText(Model.Text)) {
     }
     var tag = Tag(Model, "li");
     @tag.StartElement
-            
+    
+    if (!String.IsNullOrEmpty(iconUrl))
+    {
+        @Html.Image(iconUrl, "", null)
+    } 
+    
     @* morphing the shape to keep Model untouched*@
     Model.Metadata.Alternates.Clear(); 
     if (items.Any()) {

@@ -41,7 +41,7 @@
     position: absolute;
     right: 10px;
     bottom: 10px;
-    color: white;    
+    color: white;
     float: right;
     display: inline;
 }
@@ -55,4 +55,15 @@
 .menu-main-menu li a
 {
     padding: 10px;
+}
+
+.menu-main-menu li
+{
+    margin-bottom: 8px;
+}
+
+.menu-main-menu li img
+{
+    float: left;
+    margin-right: 10px !important;
 }

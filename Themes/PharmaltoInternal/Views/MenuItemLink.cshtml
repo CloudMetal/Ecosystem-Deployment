@@ -1,1 +1,5 @@
-﻿<a href="@Model.Href">@Model.Text</a>
+﻿@if (!String.IsNullOrEmpty(Model.Icon.ToString()))
+{
+    <img src="@(Model.Icon.ToString())" />
+}
+<a href="@Model.Href">@Model.Text</a>
