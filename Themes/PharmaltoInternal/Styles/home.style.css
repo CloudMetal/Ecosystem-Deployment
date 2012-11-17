@@ -52,12 +52,12 @@
     margin-right: 10px;
 }
 
-.menu-main-menu li a
+.menu-main-menu li a, .menu-site-user-menu li a
 {
     padding: 10px;
 }
 
-.menu-main-menu li
+.menu-main-menu li, .menu-site-user-menu li
 {
     margin-bottom: 8px;
 }
